@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "baza",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\przem\\Web projects\\baza\\amplify\\backend\\api\\baza\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
