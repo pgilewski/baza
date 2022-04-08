@@ -4,11 +4,21 @@
 
 export type CreateGroupInput = {
   id?: string | null,
+  owner?: string | null,
   name: string,
+  entries: Array< string | null >,
+  type: string,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type ModelGroupConditionInput = {
+  owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
+  entries?: ModelStringInput | null,
+  type?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelGroupConditionInput | null > | null,
   or?: Array< ModelGroupConditionInput | null > | null,
   not?: ModelGroupConditionInput | null,
@@ -57,49 +67,39 @@ export type ModelSizeInput = {
 export type Group = {
   __typename: "Group",
   id: string,
+  owner?: string | null,
   name: string,
-  entries?: ModelEntryConnection | null,
+  entries: Array< string | null >,
+  type: string,
   createdAt: string,
   updatedAt: string,
-};
-
-export type ModelEntryConnection = {
-  __typename: "ModelEntryConnection",
-  items:  Array<Entry | null >,
-  nextToken?: string | null,
-};
-
-export type Entry = {
-  __typename: "Entry",
-  id: string,
-  name: string,
-  blog?: Group | null,
-  createdAt: string,
-  updatedAt: string,
-  groupEntriesId?: string | null,
 };
 
 export type UpdateGroupInput = {
   id: string,
+  owner?: string | null,
   name?: string | null,
+  entries?: Array< string | null > | null,
+  type?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type DeleteGroupInput = {
   id: string,
 };
 
-export type CreateEntryInput = {
-  id?: string | null,
-  name: string,
-  groupEntriesId?: string | null,
-};
-
-export type ModelEntryConditionInput = {
+export type ModelGroupFilterInput = {
+  id?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  and?: Array< ModelEntryConditionInput | null > | null,
-  or?: Array< ModelEntryConditionInput | null > | null,
-  not?: ModelEntryConditionInput | null,
-  groupEntriesId?: ModelIDInput | null,
+  entries?: ModelStringInput | null,
+  type?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelGroupFilterInput | null > | null,
+  or?: Array< ModelGroupFilterInput | null > | null,
+  not?: ModelGroupFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -118,37 +118,154 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateEntryInput = {
-  id: string,
-  name?: string | null,
-  groupEntriesId?: string | null,
-};
-
-export type DeleteEntryInput = {
-  id: string,
-};
-
-export type ModelGroupFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  and?: Array< ModelGroupFilterInput | null > | null,
-  or?: Array< ModelGroupFilterInput | null > | null,
-  not?: ModelGroupFilterInput | null,
-};
-
 export type ModelGroupConnection = {
   __typename: "ModelGroupConnection",
   items:  Array<Group | null >,
   nextToken?: string | null,
 };
 
-export type ModelEntryFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  and?: Array< ModelEntryFilterInput | null > | null,
-  or?: Array< ModelEntryFilterInput | null > | null,
-  not?: ModelEntryFilterInput | null,
-  groupEntriesId?: ModelIDInput | null,
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
+export type SearchableGroupFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  owner?: SearchableStringFilterInput | null,
+  name?: SearchableStringFilterInput | null,
+  entries?: SearchableStringFilterInput | null,
+  type?: SearchableStringFilterInput | null,
+  createdAt?: SearchableStringFilterInput | null,
+  updatedAt?: SearchableStringFilterInput | null,
+  and?: Array< SearchableGroupFilterInput | null > | null,
+  or?: Array< SearchableGroupFilterInput | null > | null,
+  not?: SearchableGroupFilterInput | null,
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableGroupSortInput = {
+  field?: SearchableGroupSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableGroupSortableFields {
+  id = "id",
+  owner = "owner",
+  name = "name",
+  entries = "entries",
+  type = "type",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc",
+}
+
+
+export type SearchableGroupAggregationInput = {
+  name: string,
+  type: SearchableAggregateType,
+  field: SearchableGroupAggregateField,
+};
+
+export enum SearchableAggregateType {
+  terms = "terms",
+  avg = "avg",
+  min = "min",
+  max = "max",
+  sum = "sum",
+}
+
+
+export enum SearchableGroupAggregateField {
+  id = "id",
+  owner = "owner",
+  name = "name",
+  entries = "entries",
+  type = "type",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableGroupConnection = {
+  __typename: "SearchableGroupConnection",
+  items:  Array<Group | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
+export type SearchableAggregateResult = {
+  __typename: "SearchableAggregateResult",
+  name: string,
+  result?: SearchableAggregateGenericResult | null,
+};
+
+export type SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
+
+
+export type SearchableAggregateScalarResult = {
+  __typename: "SearchableAggregateScalarResult",
+  value: number,
+};
+
+export type SearchableAggregateBucketResult = {
+  __typename: "SearchableAggregateBucketResult",
+  buckets?:  Array<SearchableAggregateBucketResultItem | null > | null,
+};
+
+export type SearchableAggregateBucketResultItem = {
+  __typename: "SearchableAggregateBucketResultItem",
+  key: string,
+  doc_count: number,
 };
 
 export type CreateGroupMutationVariables = {
@@ -160,19 +277,10 @@ export type CreateGroupMutation = {
   createGroup?:  {
     __typename: "Group",
     id: string,
+    owner?: string | null,
     name: string,
-    entries?:  {
-      __typename: "ModelEntryConnection",
-      items:  Array< {
-        __typename: "Entry",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-        groupEntriesId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    entries: Array< string | null >,
+    type: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -187,19 +295,10 @@ export type UpdateGroupMutation = {
   updateGroup?:  {
     __typename: "Group",
     id: string,
+    owner?: string | null,
     name: string,
-    entries?:  {
-      __typename: "ModelEntryConnection",
-      items:  Array< {
-        __typename: "Entry",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-        groupEntriesId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    entries: Array< string | null >,
+    type: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -214,102 +313,12 @@ export type DeleteGroupMutation = {
   deleteGroup?:  {
     __typename: "Group",
     id: string,
+    owner?: string | null,
     name: string,
-    entries?:  {
-      __typename: "ModelEntryConnection",
-      items:  Array< {
-        __typename: "Entry",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-        groupEntriesId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    entries: Array< string | null >,
+    type: string,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type CreateEntryMutationVariables = {
-  input: CreateEntryInput,
-  condition?: ModelEntryConditionInput | null,
-};
-
-export type CreateEntryMutation = {
-  createEntry?:  {
-    __typename: "Entry",
-    id: string,
-    name: string,
-    blog?:  {
-      __typename: "Group",
-      id: string,
-      name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    groupEntriesId?: string | null,
-  } | null,
-};
-
-export type UpdateEntryMutationVariables = {
-  input: UpdateEntryInput,
-  condition?: ModelEntryConditionInput | null,
-};
-
-export type UpdateEntryMutation = {
-  updateEntry?:  {
-    __typename: "Entry",
-    id: string,
-    name: string,
-    blog?:  {
-      __typename: "Group",
-      id: string,
-      name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    groupEntriesId?: string | null,
-  } | null,
-};
-
-export type DeleteEntryMutationVariables = {
-  input: DeleteEntryInput,
-  condition?: ModelEntryConditionInput | null,
-};
-
-export type DeleteEntryMutation = {
-  deleteEntry?:  {
-    __typename: "Entry",
-    id: string,
-    name: string,
-    blog?:  {
-      __typename: "Group",
-      id: string,
-      name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    groupEntriesId?: string | null,
   } | null,
 };
 
@@ -321,19 +330,10 @@ export type GetGroupQuery = {
   getGroup?:  {
     __typename: "Group",
     id: string,
+    owner?: string | null,
     name: string,
-    entries?:  {
-      __typename: "ModelEntryConnection",
-      items:  Array< {
-        __typename: "Entry",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-        groupEntriesId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    entries: Array< string | null >,
+    type: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -351,11 +351,10 @@ export type ListGroupsQuery = {
     items:  Array< {
       __typename: "Group",
       id: string,
+      owner?: string | null,
       name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
+      entries: Array< string | null >,
+      type: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -363,188 +362,122 @@ export type ListGroupsQuery = {
   } | null,
 };
 
-export type GetEntryQueryVariables = {
-  id: string,
-};
-
-export type GetEntryQuery = {
-  getEntry?:  {
-    __typename: "Entry",
-    id: string,
-    name: string,
-    blog?:  {
-      __typename: "Group",
-      id: string,
-      name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    groupEntriesId?: string | null,
-  } | null,
-};
-
-export type ListEntriesQueryVariables = {
-  filter?: ModelEntryFilterInput | null,
+export type GroupsByDateQueryVariables = {
+  type: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelGroupFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListEntriesQuery = {
-  listEntries?:  {
-    __typename: "ModelEntryConnection",
+export type GroupsByDateQuery = {
+  groupsByDate?:  {
+    __typename: "ModelGroupConnection",
     items:  Array< {
-      __typename: "Entry",
+      __typename: "Group",
       id: string,
+      owner?: string | null,
       name: string,
-      blog?:  {
-        __typename: "Group",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
+      entries: Array< string | null >,
+      type: string,
       createdAt: string,
       updatedAt: string,
-      groupEntriesId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
+};
+
+export type SearchGroupsQueryVariables = {
+  filter?: SearchableGroupFilterInput | null,
+  sort?: Array< SearchableGroupSortInput | null > | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+  aggregates?: Array< SearchableGroupAggregationInput | null > | null,
+};
+
+export type SearchGroupsQuery = {
+  searchGroups?:  {
+    __typename: "SearchableGroupConnection",
+    items:  Array< {
+      __typename: "Group",
+      id: string,
+      owner?: string | null,
+      name: string,
+      entries: Array< string | null >,
+      type: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+    total?: number | null,
+    aggregateItems:  Array< {
+      __typename: "SearchableAggregateResult",
+      name: string,
+      result: ( {
+          __typename: "SearchableAggregateScalarResult",
+          value: number,
+        } | {
+          __typename: "SearchableAggregateBucketResult",
+          buckets?:  Array< {
+            __typename: string,
+            key: string,
+            doc_count: number,
+          } | null > | null,
+        }
+      ) | null,
+    } | null >,
+  } | null,
+};
+
+export type OnCreateGroupSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateGroupSubscription = {
   onCreateGroup?:  {
     __typename: "Group",
     id: string,
+    owner?: string | null,
     name: string,
-    entries?:  {
-      __typename: "ModelEntryConnection",
-      items:  Array< {
-        __typename: "Entry",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-        groupEntriesId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    entries: Array< string | null >,
+    type: string,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateGroupSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateGroupSubscription = {
   onUpdateGroup?:  {
     __typename: "Group",
     id: string,
+    owner?: string | null,
     name: string,
-    entries?:  {
-      __typename: "ModelEntryConnection",
-      items:  Array< {
-        __typename: "Entry",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-        groupEntriesId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    entries: Array< string | null >,
+    type: string,
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteGroupSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteGroupSubscription = {
   onDeleteGroup?:  {
     __typename: "Group",
     id: string,
+    owner?: string | null,
     name: string,
-    entries?:  {
-      __typename: "ModelEntryConnection",
-      items:  Array< {
-        __typename: "Entry",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-        groupEntriesId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    entries: Array< string | null >,
+    type: string,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnCreateEntrySubscription = {
-  onCreateEntry?:  {
-    __typename: "Entry",
-    id: string,
-    name: string,
-    blog?:  {
-      __typename: "Group",
-      id: string,
-      name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    groupEntriesId?: string | null,
-  } | null,
-};
-
-export type OnUpdateEntrySubscription = {
-  onUpdateEntry?:  {
-    __typename: "Entry",
-    id: string,
-    name: string,
-    blog?:  {
-      __typename: "Group",
-      id: string,
-      name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    groupEntriesId?: string | null,
-  } | null,
-};
-
-export type OnDeleteEntrySubscription = {
-  onDeleteEntry?:  {
-    __typename: "Entry",
-    id: string,
-    name: string,
-    blog?:  {
-      __typename: "Group",
-      id: string,
-      name: string,
-      entries?:  {
-        __typename: "ModelEntryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    groupEntriesId?: string | null,
   } | null,
 };

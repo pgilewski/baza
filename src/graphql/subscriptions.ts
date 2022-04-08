@@ -3,122 +3,41 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateGroup = /* GraphQL */ `
-  subscription OnCreateGroup {
-    onCreateGroup {
+  subscription OnCreateGroup($owner: String) {
+    onCreateGroup(owner: $owner) {
       id
+      owner
       name
-      entries {
-        items {
-          id
-          name
-          createdAt
-          updatedAt
-          groupEntriesId
-        }
-        nextToken
-      }
+      entries
+      type
       createdAt
       updatedAt
     }
   }
 `;
 export const onUpdateGroup = /* GraphQL */ `
-  subscription OnUpdateGroup {
-    onUpdateGroup {
+  subscription OnUpdateGroup($owner: String) {
+    onUpdateGroup(owner: $owner) {
       id
+      owner
       name
-      entries {
-        items {
-          id
-          name
-          createdAt
-          updatedAt
-          groupEntriesId
-        }
-        nextToken
-      }
+      entries
+      type
       createdAt
       updatedAt
     }
   }
 `;
 export const onDeleteGroup = /* GraphQL */ `
-  subscription OnDeleteGroup {
-    onDeleteGroup {
+  subscription OnDeleteGroup($owner: String) {
+    onDeleteGroup(owner: $owner) {
       id
+      owner
       name
-      entries {
-        items {
-          id
-          name
-          createdAt
-          updatedAt
-          groupEntriesId
-        }
-        nextToken
-      }
+      entries
+      type
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateEntry = /* GraphQL */ `
-  subscription OnCreateEntry {
-    onCreateEntry {
-      id
-      name
-      blog {
-        id
-        name
-        entries {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      groupEntriesId
-    }
-  }
-`;
-export const onUpdateEntry = /* GraphQL */ `
-  subscription OnUpdateEntry {
-    onUpdateEntry {
-      id
-      name
-      blog {
-        id
-        name
-        entries {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      groupEntriesId
-    }
-  }
-`;
-export const onDeleteEntry = /* GraphQL */ `
-  subscription OnDeleteEntry {
-    onDeleteEntry {
-      id
-      name
-      blog {
-        id
-        name
-        entries {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      groupEntriesId
     }
   }
 `;

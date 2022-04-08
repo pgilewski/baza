@@ -9,17 +9,10 @@ export const createGroup = /* GraphQL */ `
   ) {
     createGroup(input: $input, condition: $condition) {
       id
+      owner
       name
-      entries {
-        items {
-          id
-          name
-          createdAt
-          updatedAt
-          groupEntriesId
-        }
-        nextToken
-      }
+      entries
+      type
       createdAt
       updatedAt
     }
@@ -32,17 +25,10 @@ export const updateGroup = /* GraphQL */ `
   ) {
     updateGroup(input: $input, condition: $condition) {
       id
+      owner
       name
-      entries {
-        items {
-          id
-          name
-          createdAt
-          updatedAt
-          groupEntriesId
-        }
-        nextToken
-      }
+      entries
+      type
       createdAt
       updatedAt
     }
@@ -55,88 +41,12 @@ export const deleteGroup = /* GraphQL */ `
   ) {
     deleteGroup(input: $input, condition: $condition) {
       id
+      owner
       name
-      entries {
-        items {
-          id
-          name
-          createdAt
-          updatedAt
-          groupEntriesId
-        }
-        nextToken
-      }
+      entries
+      type
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createEntry = /* GraphQL */ `
-  mutation CreateEntry(
-    $input: CreateEntryInput!
-    $condition: ModelEntryConditionInput
-  ) {
-    createEntry(input: $input, condition: $condition) {
-      id
-      name
-      blog {
-        id
-        name
-        entries {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      groupEntriesId
-    }
-  }
-`;
-export const updateEntry = /* GraphQL */ `
-  mutation UpdateEntry(
-    $input: UpdateEntryInput!
-    $condition: ModelEntryConditionInput
-  ) {
-    updateEntry(input: $input, condition: $condition) {
-      id
-      name
-      blog {
-        id
-        name
-        entries {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      groupEntriesId
-    }
-  }
-`;
-export const deleteEntry = /* GraphQL */ `
-  mutation DeleteEntry(
-    $input: DeleteEntryInput!
-    $condition: ModelEntryConditionInput
-  ) {
-    deleteEntry(input: $input, condition: $condition) {
-      id
-      name
-      blog {
-        id
-        name
-        entries {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      groupEntriesId
     }
   }
 `;

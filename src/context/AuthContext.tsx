@@ -1,92 +1,140 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
-import { Auth, Hub } from 'aws-amplify'
-import { useNavigate } from "react-router-dom";
-import NotyfContext from './NotyfContext'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { Auth, Hub } from 'aws-amplify';
+import { useNavigate } from 'react-router-dom';
+import NotyfContext from './NotyfContext';
 
 type UserProps = {
-    username: string;
-    email: string;
+  username: string;
+  email: string;
 };
 
 type authContextType = {
-    user: boolean | UserProps;
-    login: (formState: any) => Promise<void>;
-    logout: () =>  Promise<void>;
+  user: UserProps | false;
+  setUser: any;
+  login: (formState: any) => Promise<void>;
+  signUp: (formState: any) => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 const authContextDefaultValues: authContextType = {
-    user: false,
-    login: (async () => {}),
-    logout: (async () => {}),
+  user: false,
+  setUser: async () => {},
+  login: async () => {},
+  signUp: async () => {},
+  logout: async () => {},
 };
 
-const AuthContext = createContext<authContextType>(authContextDefaultValues);
+const AuthContext = createContext<authContextType>(
+  authContextDefaultValues
+);
 
 export function useAuth() {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 }
 
 type Props = {
-    children: ReactNode;
+  children: ReactNode;
 };
 
-export function AuthProvider({ children }: Props){
+export function AuthProvider({ children }: Props) {
+  let navigate = useNavigate();
 
-    let navigate = useNavigate();
-    const notyf = useContext(NotyfContext)
+  const notyf = useContext(NotyfContext);
 
-    const [user, setUser] = useState<UserProps | boolean >(false);
+  const [user, setUser] = useState<UserProps | false>(false);
 
-    const login = async (formState:any) => {
-        console.log(formState)
-        const { username, password } = formState
-        if (username === '') {
-          notyf.error("Username can't be empty.")
-        } else if (password === '') {
-          notyf.error("Password can't be empty.")
+  const login = async (formState: any) => {
+    const { username, password } = formState;
+    if (username === '') {
+      notyf.error("Username can't be empty.");
+    } else if (password === '') {
+      notyf.error("Password can't be empty.");
+    } else {
+      try {
+        const userInfo = await Auth.signIn({
+          username,
+          password,
+        });
+        const user = {
+          username: userInfo.username,
+          email: userInfo.attributes.email,
+        };
+
+        if (userInfo) {
+          setUser(user);
+          notyf.success('You sucessfully logged in.');
+          navigate(`/app/`);
         } else {
-          try {
-            const user = await Auth.signIn({
-              username,
-              password,
-            })
-            console.log(user)
-
-            if (user) {
-              console.log(user)
-              notyf.success('You sucessfully logged in.')
-              navigate(`/app/`);
-              setUser(true);
-            } else {
-              notyf.error(`Couldn't log in. Check your username or password.`)
-            }
-          } catch (error) {
-            notyf.error(`Couldn't log in. Check your username or password.`)
-          }
+          notyf.error(
+            `Couldn't log in. Check your username or password.`
+          );
         }
+      } catch (error) {
+        notyf.error(
+          `Couldn't log in. Check your username or password.`
+        );
       }
+    }
+  };
 
-    const logout = async () => {
-        setUser(false);
-        localStorage.removeItem('user')
-        await Auth.signOut()
-        navigate('/')
-        notyf.success('You logged out.')
-    };
+  const logout = async () => {
+    await Auth.signOut();
+    setUser(false);
+    localStorage.removeItem('user');
+    navigate('/');
+    notyf.success('You logged out.');
+  };
 
-    const value = {
-        user,
-        login,
-        logout,
-    };
+  const signUp = async (formState: any) => {
+    const { username, email, password } = formState;
+    if (password === '') {
+      notyf.error("Password can't be empty.");
+    } else if (username === '') {
+      notyf.error("Username can't be empty.");
+    } else if (email === '') {
+      notyf.error("Email can't be empty.");
+    } else {
+      try {
+        await Auth.signUp({
+          username,
+          password,
+          attributes: {
+            email,
+          },
+        }).then((user) => {
+          notyf.success(
+            'You have created an account. Confirm it by going to your e-mail.'
+          );
+        });
+      } catch (error) {
+        notyf.error(
+          'An account with the given email already exists.'
+        );
+      }
+    }
+  };
 
-    return (
-        <>
-            <AuthContext.Provider value={value}>
-                {children}
-            </AuthContext.Provider>
-        </>
-    );
+  const value = {
+    user,
+    setUser,
+    login,
+    logout,
+    signUp,
+  };
+
+  return (
+    <>
+      <AuthContext.Provider value={value}>
+        {children}
+      </AuthContext.Provider>
+    </>
+  );
 }
 
 //wrapper for the provieder
@@ -102,4 +150,4 @@ export function AuthProvider({ children }: Props){
 //   )
 // }
 
-export const useAuthContext = () => useContext(AuthContext)
+export const useAuthContext = () => useContext(AuthContext);
