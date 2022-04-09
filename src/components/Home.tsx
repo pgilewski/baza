@@ -11,6 +11,8 @@ import Greeting from './Greeting';
 import { updateGroup } from '../graphql/mutations';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { ReactComponent as Dice } from '../assets/icons/dice.svg';
+
 import {
   getRandomEntryFromGroup,
   getRandomEntryFromAllGroups,
@@ -295,12 +297,16 @@ const Home: React.FC = () => {
         </div>
       </div>
       <div className="sm:h-10 flex flex-col sm:flex-row justify-center">
-        <input
+        <div
           onClick={() => handleRollAllClick(groups)}
-          type="button"
-          className="px-3 transition-colors border-t border-gray-900 sm:border-t-0  h-10 bg-white text-black hover:text-white bg-gradient-to-tr  from-sky-500 to-green-400 cursor-pointer"
-          value="Roll from all groups"
-        />
+          className="flex px-3 align-middle text-center transition-colors border-t border-gray-900 sm:border-t-0  h-10 bg-white text-black hover:text-white bg-gradient-to-tr  from-sky-500 to-green-400 cursor-pointer"
+        >
+          <Dice className="w-6 h-6 my-auto mr-2 " />
+
+          <div className="my-auto w-full flex flex-row">
+            Roll from all groups
+          </div>
+        </div>
       </div>
       <div className="py-4">
         <div>
