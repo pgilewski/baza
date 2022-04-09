@@ -53,6 +53,8 @@ const Home: React.FC = () => {
         });
     }
   });
+  const [groups, setGroups] = useState<[Group] | []>([]);
+
   useEffect(() => {
     getGroupsList().then((d: any) => {
       setGroups(d.data.groupsByDate.items);
@@ -60,9 +62,8 @@ const Home: React.FC = () => {
         setGroupSelected(d.data.groupsByDate.items[0].id);
       }
     });
-  }, []);
+  }, [groups.length]);
 
-  const [groups, setGroups] = useState<[Group] | []>([]);
   const [groupName, setGroupName] = useState('');
   const [groupSelected, setGroupSelected] = useState('');
 

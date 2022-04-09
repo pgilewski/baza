@@ -1,20 +1,26 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-baza-dev-162008-authRole",
-      "UnauthRoleArn": "arn:aws:iam::216467030856:role/amplify-baza-dev-162008-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::216467030856:role/amplify-baza-dev-162008-authRole",
-      "Region": "eu-central-1",
-      "DeploymentBucketName": "amplify-baza-dev-162008-deployment",
-      "UnauthRoleName": "amplify-baza-dev-162008-unauthRole",
-      "StackName": "amplify-baza-dev-162008",
-      "StackId": "arn:aws:cloudformation:eu-central-1:216467030856:stack/amplify-baza-dev-162008/95b1d2b0-9bce-11ec-9957-063a7535face",
-      "AmplifyAppId": "d1m8llrxg1rnsf"
-    },
-    "categories": {
-      "auth": {
-        "baza81ae4f0b": {}
-      }
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-baza-dev-162008-authRole",
+            "UnauthRoleArn": "arn:aws:iam::216467030856:role/amplify-baza-dev-162008-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::216467030856:role/amplify-baza-dev-162008-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "amplify-baza-dev-162008-deployment",
+            "UnauthRoleName": "amplify-baza-dev-162008-unauthRole",
+            "StackName": "amplify-baza-dev-162008",
+            "StackId": "arn:aws:cloudformation:eu-central-1:216467030856:stack/amplify-baza-dev-162008/95b1d2b0-9bce-11ec-9957-063a7535face",
+            "AmplifyAppId": "d1m8llrxg1rnsf"
+        },
+        "categories": {
+            "auth": {
+                "baza81ae4f0b": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d1m8llrxg1rnsf",
+                    "type": "cicd"
+                }
+            }
+        }
     }
-  }
 }
