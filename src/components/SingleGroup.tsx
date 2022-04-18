@@ -7,6 +7,7 @@ import NotyfContext from '../context/NotyfContext';
 import { getRandomEntryFromGroup } from './reusable/handlers';
 import { Group } from '../API';
 import { ReactComponent as Dice } from '../assets/icons/dice.svg';
+import Button from './reusable/Button';
 
 const SingleGroup: React.FC = () => {
   let topicId = useLocation();
@@ -200,13 +201,12 @@ const SingleGroup: React.FC = () => {
               </div>
             </div>
           </div>
-          <div
+          <Button
+            color="green2"
             onClick={() => handleRollClick(group)}
-            className="flex hover:text-white mx-auto sm:w-36 py-3 px-6 bg-gradient-to-tr text-black from-sky-500 to-green-400 cursor-pointer text-xl font-light"
-          >
-            <Dice className="w-6 h-6 my-auto mr-2 ml-auto" />
-            <div className="my-auto mr-auto">Roll</div>
-          </div>
+            icon={<Dice className="w-6 h-6 my-auto mr-2 " />}
+            text="Roll"
+          />
           {rolledEntry ? (
             <div className="pt-6">
               You have rolled entry{' '}

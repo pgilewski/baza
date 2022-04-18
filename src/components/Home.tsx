@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import NotyfContext from '../context/NotyfContext';
-import { useAuth, useAuthContext } from '../context/AuthContext';
-import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { useAuth } from '../context/AuthContext';
+import { API, Auth } from 'aws-amplify';
 import { createGroup, deleteGroup } from '../graphql/mutations';
 import { groupsByDate } from '../graphql/queries';
 import { Link, useNavigate } from 'react-router-dom';
-import useToggle from '../hooks/useToggle';
 import { Group } from '../API';
 import Greeting from './Greeting';
 import { updateGroup } from '../graphql/mutations';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { ReactComponent as Dice } from '../assets/icons/dice.svg';
+import Button from './reusable/Button';
 
 import {
   getRandomEntryFromGroup,
@@ -234,13 +234,11 @@ const Home: React.FC = () => {
   const [rolledEntry, setRolledEntry] = useState<null | string>(null);
   const handleRollClick = (group: Group) => {
     const res = getRandomEntryFromGroup(group);
-    console.log(res);
     setRolledEntry(res);
   };
   const handleRollAllClick = (groups: [Group] | []) => {
     if (groups !== []) {
       const res = getRandomEntryFromAllGroups(groups);
-      console.log(res);
       setRolledEntry(res);
     }
   };
@@ -256,11 +254,10 @@ const Home: React.FC = () => {
           value={groupName}
           className="cursor-pointer border-r h-10 border-gray-900 text-black pl-2 focus:outline focus:outline-2 focus:outline-skyish"
         />
-        <input
+        <Button
           onClick={createGroupHandle}
-          type="button"
-          className="px-3 transition-colors border-t border-gray-900 sm:border-t-0  h-10 bg-white text-black hover:text-white hover:bg-blue-900 cursor-pointer"
-          value="Click to create group"
+          text="Click to create group"
+          color="hoverBlue"
         />
       </div>
       <div className="sm:h-10 flex sm:flex-row justify-center my-4">
@@ -288,25 +285,21 @@ const Home: React.FC = () => {
               className="cursor-pointer py-2 h-10 text-black pl-2  border-r border-gray-900"
             />
           </div>
-          <input
-            type="button"
+
+          <Button
             onClick={addEntryHandle}
-            value="Add to group"
-            className="py-2 px-2 border-t border-gray-900 sm:border-t-0 cursor-pointer  transition-colors bg-white text-black hover:text-white hover:bg-green-900"
+            text="Add to group"
+            color="hoverGreen"
           />
         </div>
       </div>
       <div className="sm:h-10 flex flex-col sm:flex-row justify-center">
-        <div
+        <Button
+          color="green"
           onClick={() => handleRollAllClick(groups)}
-          className="flex px-3 align-middle text-center transition-colors border-t border-gray-900 sm:border-t-0  h-10 bg-white text-black hover:text-white bg-gradient-to-tr  from-sky-500 to-green-400 cursor-pointer"
-        >
-          <Dice className="w-6 h-6 my-auto mr-2 " />
-
-          <div className="my-auto w-full flex flex-row">
-            Roll from all groups
-          </div>
-        </div>
+          icon={<Dice className="w-6 h-6 my-auto mr-2 " />}
+          text="Roll from all groups"
+        />
       </div>
       <div className="py-4">
         <div>

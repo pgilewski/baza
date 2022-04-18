@@ -1,14 +1,14 @@
-import { ReactComponent as GoogleIcon } from '../assets/icons/google.svg';
 import GradientText from './GradientText';
+import Button from './reusable/Button';
 import { useAuth } from '../context/AuthContext';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const AppSpawn = ({}) => {
-  const { user, login, logout } = useAuth();
+  const { login } = useAuth();
   const [formState, setFormState] = useState<object | null>(null);
   //TODO: if user is logged in then navigate to /app
-  function onChange(e: any) {
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.persist();
     setFormState(() => ({
       ...formState,
@@ -40,12 +40,12 @@ const AppSpawn = ({}) => {
             className="placeholder-black transition-colors hover:transition-colors bg-green focus:bg-green-500 p-3 my-1 w-60 mx-auto cursor-pointer"
           />
 
-          <div
+          <Button
             onClick={() => login(formState)}
-            className="px-8 bg-gradient-to-r  from-purple-600 to-blue-500 transition-colors hover:transition-colors bg-white hover:bg-gray-400 cursor-pointer p-3 my-6 md:my-4 mx-auto text-black text-center"
-          >
-            GET IN
-          </div>
+            color="purple"
+            text="GET IN"
+          />
+
           <span className="cursor-pointer font-sans text-white underline italic text-base">
             <Link to="register">You dont have an account?</Link>
           </span>

@@ -1,6 +1,6 @@
 type Props = {
-  text: string
-}
+  text: string;
+};
 
 const GradientText = ({ text }: Props) => {
   return (
@@ -14,6 +14,6 @@ const GradientText = ({ text }: Props) => {
         </span>
       </h1>
     </div>
-  )
-}
+  );
+};
 export default GradientText;
