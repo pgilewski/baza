@@ -1,8 +1,7 @@
-import React, {
+import {
   createContext,
   ReactNode,
   useContext,
-  useEffect,
   useState,
 } from 'react';
 import { Auth, Hub } from 'aws-amplify';
@@ -136,18 +135,5 @@ export function AuthProvider({ children }: Props) {
     </>
   );
 }
-
-//wrapper for the provieder
-// export const AuthProvider2: React.FC<AuthProps> = (props: AuthProps) => {
-//   const AuthContext = createContext(null)
-//   const { user, children } = props;
-//   const [currentUser, setCurrentUser] = useState(user)
-
-//   return (
-//     <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
-//       {children}
-//     </AuthContext.Provider>
-//   )
-// }
 
 export const useAuthContext = () => useContext(AuthContext);

@@ -10,6 +10,7 @@ import Amplify from 'aws-amplify';
 import Register from './components/Register';
 import SingleGroup from './components/SingleGroup';
 import Layout from './components/Layout';
+import Policy from './components/Policy';
 
 Amplify.configure(awsconfig);
 
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <Route path="groups" element={<Groups />}>
               <Route path=":groupId" element={<SingleGroup />} />
             </Route>
+            <Route path="policy" element={<Policy />} />
           </Route>
         </Routes>
       </AuthProvider>

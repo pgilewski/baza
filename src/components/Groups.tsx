@@ -1,14 +1,7 @@
 import React, { useState, useContext } from 'react';
-import NotyfContext from '../context/NotyfContext';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-} from 'react-router-dom';
-import SingleGroup from './SingleGroup';
+import { BrowserRouter as Router, Outlet } from 'react-router-dom';
 
-// TODO: dodawanie i wyciaganie przez graphqla, rollowanie, potwierdzanie usuniecia, otwarcie grupy
+// TODO: layout if needed
 
 const Groups: React.FC = () => {
   return (

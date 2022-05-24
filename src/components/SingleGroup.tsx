@@ -1,4 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  KeyboardEvent,
+} from 'react';
 import { useLocation } from 'react-router-dom';
 import { getGroup } from '../graphql/queries';
 import { API } from 'aws-amplify';
@@ -105,6 +110,14 @@ const SingleGroup: React.FC = () => {
     const res = getRandomEntryFromGroup(group);
     setRolledEntry(res);
   };
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    // do stuff
+    if (e.key === 'Enter') {
+      handleAddEntry();
+    }
+  };
+
   return (
     <div className="">
       {group && !fetching ? (
@@ -116,6 +129,7 @@ const SingleGroup: React.FC = () => {
           <div className="flex flex-col">
             <div className="flex flex-row justify-center sm:justify-end">
               <input
+                onKeyPress={handleKeyPress}
                 type="text"
                 value={newEntry}
                 onChange={(e) => setNewEntry(e.target.value)}

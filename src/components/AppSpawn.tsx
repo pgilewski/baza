@@ -1,7 +1,7 @@
-import GradientText from './GradientText';
+import GradientText from './reusable/GradientText';
 import Button from './reusable/Button';
 import { useAuth } from '../context/AuthContext';
-import React, { useState } from 'react';
+import React, { useState, KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 const AppSpawn = ({}) => {
@@ -15,7 +15,13 @@ const AppSpawn = ({}) => {
       [e.target.name]: e.target.value,
     }));
   }
-
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    // do stuff
+    if (e.key === 'Enter') {
+      console.log('test');
+      login(formState);
+    }
+  };
   return (
     <div className="h-screen w-full homeBg text-center align-middle mx-auto">
       <div className="flex-row justify-center">
@@ -33,6 +39,7 @@ const AppSpawn = ({}) => {
             className="placeholder-black transition-colors hover:transition-colors bg-purple focus:bg-blue-800  p-3 my-1 w-60 mx-auto cursor-pointer"
           />
           <input
+            onKeyPress={handleKeyPress}
             onChange={onChange}
             type="password"
             name="password"

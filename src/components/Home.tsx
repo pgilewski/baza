@@ -1,4 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+  KeyboardEvent,
+  useState,
+  useContext,
+  useEffect,
+} from 'react';
 import NotyfContext from '../context/NotyfContext';
 import { useAuth } from '../context/AuthContext';
 import { API, Auth } from 'aws-amplify';
@@ -6,7 +11,7 @@ import { createGroup, deleteGroup } from '../graphql/mutations';
 import { groupsByDate } from '../graphql/queries';
 import { Link, useNavigate } from 'react-router-dom';
 import { Group } from '../API';
-import Greeting from './Greeting';
+import Greeting from './reusable/Greeting';
 import { updateGroup } from '../graphql/mutations';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
@@ -118,7 +123,7 @@ const Home: React.FC = () => {
 
   // set entry name in jsx
 
-  const addEntryHandle = async (e: any) => {
+  const addEntryHandle = async () => {
     let x = groups.find((obj) => {
       return obj.id == groupSelected;
     });
@@ -242,6 +247,23 @@ const Home: React.FC = () => {
       setRolledEntry(res);
     }
   };
+
+  const handleKeyPressGroup = (
+    e: KeyboardEvent<HTMLInputElement>
+  ) => {
+    // do stuff
+    if (e.key === 'Enter') {
+      createGroupHandle();
+    }
+  };
+  const handleKeyPressEntry = (
+    e: KeyboardEvent<HTMLInputElement>
+  ) => {
+    // do stuff
+    if (e.key === 'Enter') {
+      addEntryHandle();
+    }
+  };
   return (
     <div>
       <Greeting user={user ? user.username : null} />
@@ -251,6 +273,7 @@ const Home: React.FC = () => {
           type="text"
           placeholder="Group name"
           onChange={handleGroupChange}
+          onKeyPress={handleKeyPressGroup}
           value={groupName}
           className="cursor-pointer border-r h-10 border-gray-900 text-black pl-2 focus:outline focus:outline-2 focus:outline-skyish"
         />
@@ -278,6 +301,7 @@ const Home: React.FC = () => {
               })}
             </select>
             <input
+              onKeyPress={handleKeyPressEntry}
               type="text"
               placeholder="name"
               onChange={(e) => setEntryName(e.target.value)}

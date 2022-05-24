@@ -1,4 +1,3 @@
-import { useAuth } from '../context/AuthContext';
 type Props = {
   user: string | null;
 };
