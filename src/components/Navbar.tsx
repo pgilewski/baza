@@ -3,8 +3,8 @@ import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import type { LinkProps } from 'react-router-dom'
 
 function CustomLink({ children, to, ...props }: LinkProps) {
-  let resolved = useResolvedPath(to)
-  let match = useMatch({ path: resolved.pathname, end: true })
+  const resolved = useResolvedPath(to)
+  const match = useMatch({ path: resolved.pathname, end: true })
 
   return (
     <div>
@@ -17,18 +17,18 @@ function CustomLink({ children, to, ...props }: LinkProps) {
 
 const Navbar = () => {
   return (
-    <div className="mediumShadow w-full bg-navyDark px-8 py-6 shadow-strong text-lg2">
-      <div className="w-full md:max-w-screen-lg  flex flex-row justify-between m-auto font-semibold md:text-lg">
+    <div className="mediumShadow bg-navyDark shadow-strong text-lg2 w-full px-8 py-6">
+      <div className="m-auto flex  w-full flex-row justify-between font-semibold md:max-w-screen-lg md:text-lg">
         <div className="flex flex-row sm:mr-0  ">
           <CustomLink
             to="/"
-            className="mx-2 text-center flex items-center justify-center align-middle  font-mono"
+            className="mx-2 flex items-center justify-center text-center align-middle  font-mono"
           >
             about me
           </CustomLink>
           <CustomLink
             to="projects"
-            className="mx-2 text-center flex items-center justify-center align-middle  font-mono"
+            className="mx-2 flex items-center justify-center text-center align-middle  font-mono"
           >
             my projects
           </CustomLink>
@@ -37,7 +37,7 @@ const Navbar = () => {
           to="contact"
           className="flex flex-row items-center align-middle"
         >
-          <div className="mx-2 text-center flex items-center justify-center align-middle  font-mono">
+          <div className="mx-2 flex items-center justify-center text-center align-middle  font-mono">
             contact
           </div>
         </CustomLink>

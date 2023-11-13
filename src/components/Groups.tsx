@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { BrowserRouter as Router, Outlet } from 'react-router-dom';
+import React, { useState, useContext } from 'react'
+import { BrowserRouter as Router, Outlet } from 'react-router-dom'
 
 // TODO: layout if needed
 
@@ -8,7 +8,7 @@ const Groups: React.FC = () => {
     <div>
       <Outlet />
     </div>
-  );
-};
+  )
+}
 
-export default Groups;
+export default Groups

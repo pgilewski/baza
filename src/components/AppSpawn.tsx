@@ -1,42 +1,42 @@
-import GradientText from './reusable/GradientText';
-import Button from './reusable/Button';
-import { useAuth } from '../context/AuthContext';
-import React, { useState, KeyboardEvent } from 'react';
-import { Link } from 'react-router-dom';
+import GradientText from './reusable/GradientText'
+import Button from './reusable/Button'
+import { useAuth } from '../utils/context/AuthContext'
+import React, { useState, KeyboardEvent } from 'react'
+import { Link } from 'react-router-dom'
 
 const AppSpawn = ({}) => {
-  const { login } = useAuth();
-  const [formState, setFormState] = useState<object | null>(null);
+  const { login } = useAuth()
+  const [formState, setFormState] = useState<object | null>(null)
   //TODO: if user is logged in then navigate to /app
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    e.persist();
+    e.persist()
     setFormState(() => ({
       ...formState,
-      [e.target.name]: e.target.value,
-    }));
+      [e.target.name]: e.target.value
+    }))
   }
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     // do stuff
     if (e.key === 'Enter') {
-      console.log('test');
-      login(formState);
+      console.log('test')
+      login(formState)
     }
-  };
+  }
   return (
-    <div className="h-screen w-full homeBg text-center align-middle mx-auto">
+    <div className="homeBg mx-auto h-screen w-full text-center align-middle">
       <div className="flex-row justify-center">
         <GradientText text={'Baza'} />
-        <div className="font-mono text-xl pt-4 text-white">
-          Create groups, add entries <br />
+        <div className="pt-4 font-mono text-xl text-white">
+          Create groups, entries <br />
           and get random roll.
         </div>
-        <div className="flex flex-col font-mono justify-center mx-auto mt-4 text-black  text-lg">
+        <div className="mx-auto mt-4 flex flex-col justify-center font-mono text-lg  text-black">
           <input
             onChange={onChange}
             type="text"
             name="username"
             placeholder="login"
-            className="placeholder-black transition-colors hover:transition-colors bg-purple focus:bg-blue-800  p-3 my-1 w-60 mx-auto cursor-pointer"
+            className="bg-purple my-1 mx-auto w-60 cursor-pointer  p-3 transition-colors placeholder:text-black hover:transition-colors focus:bg-blue-800"
           />
           <input
             onKeyPress={handleKeyPress}
@@ -44,7 +44,7 @@ const AppSpawn = ({}) => {
             type="password"
             name="password"
             placeholder="password"
-            className="placeholder-black transition-colors hover:transition-colors bg-green focus:bg-green-500 p-3 my-1 w-60 mx-auto cursor-pointer"
+            className="bg-green my-1 mx-auto w-60 cursor-pointer p-3 transition-colors placeholder:text-black hover:transition-colors focus:bg-green-500"
           />
 
           <Button
@@ -53,12 +53,12 @@ const AppSpawn = ({}) => {
             text="GET IN"
           />
 
-          <span className="cursor-pointer font-sans text-white underline italic text-base">
+          <span className="cursor-pointer font-sans text-base italic text-white underline">
             <Link to="register">You dont have an account?</Link>
           </span>
         </div>
       </div>
     </div>
-  );
-};
-export default AppSpawn;
+  )
+}
+export default AppSpawn

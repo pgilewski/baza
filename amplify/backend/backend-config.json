@@ -1,6 +1,6 @@
 {
   "auth": {
-    "baza81ae4f0b": {
+    "baza93e92b41": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -29,6 +29,15 @@
     "baza": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "baza93e92b41",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
@@ -41,19 +50,12 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authbaza81ae4f0b"
+                "userPoolId": "authbaza93e92b41"
               }
             }
           ]
         }
       }
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "type": "cicd",
-      "lastPushTimeStamp": "2022-04-08T16:08:28.379Z"
     }
   }
 }

@@ -1,43 +1,43 @@
-import GradientText from './reusable/GradientText';
-import { useAuth } from '../context/AuthContext';
-import { useState, KeyboardEvent } from 'react';
-import { Link } from 'react-router-dom';
+import GradientText from './reusable/GradientText'
+import { useAuth } from '../utils/context/AuthContext'
+import { useState, KeyboardEvent } from 'react'
+import { Link } from 'react-router-dom'
 
 const Register = ({}) => {
-  const { signUp } = useAuth();
-  const [formState, setFormState] = useState<object | null>(null);
+  const { signUp } = useAuth()
+  const [formState, setFormState] = useState<object | null>(null)
   //TODO: if user is logged in then navigate to /app
   function onChange(e: any) {
-    e.persist();
+    e.persist()
     setFormState(() => ({
       ...formState,
-      [e.target.name]: e.target.value,
-    }));
+      [e.target.name]: e.target.value
+    }))
   }
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     // do stuff
     if (e.key === 'Enter') {
-      signUp(formState);
+      signUp(formState)
     }
-  };
+  }
   return (
-    <div className="h-screen w-full homeBg text-center align-middle mx-auto">
+    <div className="homeBg mx-auto h-screen w-full text-center align-middle">
       <div className="flex-row justify-center">
         <GradientText text={'Create account'} />
-        <div className="flex flex-col font-mono justify-center mx-auto mt-8 text-black  text-lg">
+        <div className="mx-auto mt-8 flex flex-col justify-center font-mono text-lg  text-black">
           <input
             onChange={onChange}
             type="text"
             name="username"
             placeholder="username"
-            className="placeholder-black transition-colors hover:transition-colors bg-purple focus:bg-blue-800  p-3 my-1 w-60 mx-auto cursor-pointer"
+            className="bg-purple my-1 mx-auto w-60 cursor-pointer  p-3 transition-colors placeholder:text-black hover:transition-colors focus:bg-blue-800"
           />
           <input
             onChange={onChange}
             type="email"
             name="email"
             placeholder="email"
-            className="placeholder-black transition-colors hover:transition-colors bg-purple focus:bg-blue-800  p-3 my-1 w-60 mx-auto cursor-pointer"
+            className="bg-purple my-1 mx-auto w-60 cursor-pointer  p-3 transition-colors placeholder:text-black hover:transition-colors focus:bg-blue-800"
           />
           <input
             onKeyPress={handleKeyPress}
@@ -45,21 +45,21 @@ const Register = ({}) => {
             type="password"
             name="password"
             placeholder="password"
-            className="placeholder-black transition-colors hover:transition-colors bg-green focus:bg-green-500 p-3 my-1 w-60 mx-auto cursor-pointer"
+            className="bg-green my-1 mx-auto w-60 cursor-pointer p-3 transition-colors placeholder:text-black hover:transition-colors focus:bg-green-500"
           />
 
           <div
             onClick={() => signUp(formState)}
-            className="px-8 bg-gradient-to-r  from-purple-600 to-blue-500 transition-colors hover:transition-colors bg-white hover:bg-gray-400 cursor-pointer p-3 my-6 md:my-4 mx-auto text-black text-center"
+            className="my-6 mx-auto  cursor-pointer bg-white bg-gradient-to-r from-purple-600 to-blue-500 p-3 px-8 text-center text-black transition-colors hover:bg-gray-400 hover:transition-colors md:my-4"
           >
             CREATE
           </div>
-          <span className="cursor-pointer font-sans text-white underline italic text-base">
+          <span className="cursor-pointer font-sans text-base italic text-white underline">
             <Link to="/">Did you verify your email?</Link>
           </span>
         </div>
       </div>
     </div>
-  );
-};
-export default Register;
+  )
+}
+export default Register

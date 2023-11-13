@@ -1,19 +1,17 @@
 .mediumShadow {
-  box-shadow: 6px 7px 15px 8px rgba(46,46,46,0.75);
-  -webkit-box-shadow: 6px 7px 15px 8px rgba(46,46,46,0.75);
-  -moz-box-shadow: 6px 7px 15px 8px rgba(46,46,46,0.75);
+  box-shadow: 6px 7px 15px 8px rgba(46, 46, 46, 0.75);
+  -webkit-box-shadow: 6px 7px 15px 8px rgba(46, 46, 46, 0.75);
+  -moz-box-shadow: 6px 7px 15px 8px rgba(46, 46, 46, 0.75);
 }
 html {
   height: 100vh;
   width: 100vw;
   background:
-  /* top, transparent black, faked with gradient */ 
-  linear-gradient(
-    rgba(0, 0, 0, 0.7), 
-    rgba(0, 0, 0, 0.7)
-  ),
-  /* bottom, image */
-  url(assets/images/bg2.jpg);
+  /* top, transparent black, faked with gradient */ linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),
+    /* bottom, image */ url(public/images/bg2.jpg);
   background-size: cover;
 }
 .image {
@@ -55,15 +53,12 @@ html {
 }
 
 .homeBg {
-  
   background:
-  /* top, transparent black, faked with gradient */ 
-  linear-gradient(
-    rgba(0, 0, 0, 0.7), 
-    rgba(0, 0, 0, 0.7)
-  ),
-  /* bottom, image */
-  url(assets/images/bg2.jpg);
+  /* top, transparent black, faked with gradient */ linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),
+    /* bottom, image */ url(public/images/bg2.jpg);
   background-size: cover;
 }
 
@@ -100,4 +95,3 @@ html {
     opacity: 1;
   }
 }
-

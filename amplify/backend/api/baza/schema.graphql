@@ -1,14 +1,21 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Group @model @searchable @auth(rules: [{ allow: owner }]) @aws_cognito_user_pools {
+type Group
+  @model
+  @searchable
+  @auth(rules: [{allow: owner}])
+  @aws_cognito_user_pools {
   id: ID!
   owner: String
   name: String!
   entries: [String]!
-  type: String! @index(name: "groupsByDate", queryField: "groupsByDate", sortKeyFields: ["createdAt"])
+  type: String!
+    @index(
+      name: "groupsByDate"
+      queryField: "groupsByDate"
+      sortKeyFields: ["createdAt"]
+    )
   createdAt: String!
   updatedAt: String!
 }
-
